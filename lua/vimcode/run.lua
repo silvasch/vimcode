@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 local M = {}
 
 function find_run_config()
@@ -23,8 +25,7 @@ function run(name, run_config)
         return
     end
 
-    vim.cmd("terminal " .. run_config[name].command)
-    vim.cmd("startinsert")
+    utils.make_terminal(run_config[name].cmd)
 end
 
 function show_runs(run_config)
