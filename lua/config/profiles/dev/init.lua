@@ -16,6 +16,20 @@ local gs = {
 	mapleader = " ",
 }
 
+local plugins = {
+    {
+        "stevearc/dressing.nvim",
+        config = true,
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+            tag = "0.1.1",
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+            },
+        },
+    },
+}
+
 local funcs = {
     new_file = {
         func = utils.wrap_cmd("enew"),
@@ -46,6 +60,7 @@ local mappings = {
 
 config.opts = opts
 config.gs = gs
+config.plugins = plugins
 config.funcs = funcs
 config.mappings = mappings
 return config

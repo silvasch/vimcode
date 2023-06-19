@@ -10,15 +10,14 @@ function find_run_config()
             break
         end
         file_dir = vim.fn.fnamemodify(file_dir, ":h")
+        if file_dir == "/" then
+            return nil
+        end
     end
     return file_dir .. "/" .. file_name
 end
 
 function run(name, run_config)
-    if name == nil then
-        return
-    end
-
     if run_config[name] == nil then
         print("'" .. name .. "' is not a name of a run config")
         return
@@ -34,8 +33,6 @@ function show_runs(run_config)
         table.insert(run_descriptions, run.desc)
     end
 
-    local run_name = nil
-
     vim.ui.select(run_descriptions, {
         prompt = "Run..."
     }, function(choice)
@@ -48,16 +45,21 @@ function show_runs(run_config)
                 run_name = name
             end
         end
+        
+        run(run_name, run_config)
     end)
-
-    return run_name
 end
 
 M.create_user_command = function()
     vim.api.nvim_create_user_command(
         "Run",
         function(opts)
-            local file = io.open(find_run_config(), "r")
+            local file_path = find_run_config()
+            if file_path == nil then
+                print("Could not find a run.json")
+                return
+            end
+            local file = io.open(file_path, "r")
             io.input(file)
             local run_config = vim.json.decode(
                 io.read("*a"),
@@ -69,14 +71,11 @@ M.create_user_command = function()
                 }
             )
 
-            local run_name = ""
             if opts.fargs[1] == nil then
-                run_name = show_runs(run_config)
+                show_runs(run_config)
             else
-                run_name = opts.fargs[1]
+                run(opts.fargs[1], run_config)
             end
-
-            run(run_name, run_config)
         end,
         { nargs = "?" }
     )

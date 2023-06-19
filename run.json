@@ -1,0 +1,6 @@
+{
+    "run": {
+        "desc": "Run",
+        "command": "cargo run"
+    }
+}
