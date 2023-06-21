@@ -25,7 +25,8 @@ function run(name, run_config)
         return
     end
 
-    utils.make_terminal(run_config[name].cmd)
+    vim.cmd("terminal " .. run_config[name].cmd)
+    vim.cmd("startinsert")
 end
 
 function show_runs(run_config)

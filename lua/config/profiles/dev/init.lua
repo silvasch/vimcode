@@ -1,8 +1,6 @@
 local utils = require("utils")
 
-local config = {
-    colorscheme = "catppuccin-mocha",
-}
+local config = {}
 
 local opts = {
     -- tab width
@@ -12,36 +10,12 @@ local opts = {
 
     -- line numbers
     relativenumber = true,
+
+    signcolumn = "yes",
 }
 
 local gs = {
 	mapleader = " ",
-}
-
-local plugins = {
-    {
-        "stevearc/dressing.nvim",
-        config = true,
-        dependencies = {
-            "nvim-telescope/telescope.nvim",
-            tag = "0.1.1",
-            dependencies = {
-                "nvim-lua/plenary.nvim",
-            },
-        },
-    },
-    { "nvim-tree/nvim-web-devicons" },
-
-    {
-        "nvim-telescope/telescope.nvim",
-        tag = "0.1.1",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-    },
-
-    -- colorschemes
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 }
 
 local funcs = {
@@ -63,21 +37,13 @@ local funcs = {
         desc = "Save the current file", 
     },
 
-    find_files = {
-        func = utils.wrap_cmd("Telescope find_files"),
-        desc = "Open the file picker",
-    },
-    select_buffer = {
-        func = utils.wrap_cmd("Telescope buffers"),
-        desc = "Select a buffer",
-    },
-
     open_terminal = {
         func = function()
-            utils.make_terminal()
+            vim.cmd("terminal")
+            vim.cmd("startinsert")
         end,
         desc = "Open the terminal",
-    }
+    },
 }
 
 local mappings = {
@@ -86,11 +52,9 @@ local mappings = {
         ["<leader>r"] = utils.wrap_cmd("Run"),
         
         ["<leader>n"] = utils.wrap_func("new_file"),
-        ["<leader>w"] = utils.wrap_func("new_file"),
+        ["<leader>w"] = utils.wrap_func("save_file"),
 
-        ["<leader>f"] = utils.wrap_func("find_files"),
-        ["<leader>b"] = utils.wrap_func("select_buffer"),
-        ["<leader>t"] = utils.make_terminal,
+        ["<leader>t"] = utils.wrap_func("open_terminal"),
 
         ["<C-Left>"] = "<C-w><Left>",
         ["<C-Right>"] = "<C-w><Right>",
@@ -103,7 +67,6 @@ local mappings = {
 
 config.opts = opts
 config.gs = gs
-config.plugins = plugins
 config.funcs = funcs
 config.mappings = mappings
 return config
