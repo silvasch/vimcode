@@ -6,3 +6,4 @@ M.mappings = require("vimcode.mappings")
 M.run = require("vimcode.run")
 
 return M
+

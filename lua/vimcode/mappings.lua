@@ -9,3 +9,4 @@ function M.load_mappings(mappings)
 end
 
 return M
+

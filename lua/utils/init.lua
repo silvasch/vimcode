@@ -11,3 +11,4 @@ M.wrap_func = function(func_name)
 end
 
 return M
+

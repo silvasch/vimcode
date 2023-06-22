@@ -38,3 +38,4 @@ function M.create_user_command(funcs)
 end
 
 return M
+
