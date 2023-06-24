@@ -55,7 +55,7 @@ local funcs = {
     },
     open_file_picker = {
         func = function()
-            local handle = io.popen("find")
+            local handle = io.popen("find -not -path './.git/*' -not -path './target/*' -not -path './node_modules/*' -type f")
             local result = handle:read("*a")
             handle:close()
             files = {}
