@@ -37,17 +37,17 @@ local funcs = {
         desc = "Save the current file", 
     },
 
+    select_buffer = {
+        func = utils.wrap_cmd("buffers"),
+        desc = "Select a buffer",
+    },
+
     open_terminal = {
         func = function()
             vim.cmd("terminal")
             vim.cmd("startinsert")
         end,
         desc = "Open the terminal",
-    },
-
-    quit = {
-        func = utils.wrap_cmd("q"),
-        desc = "Quit Vimcode",
     },
 }
 
@@ -60,8 +60,6 @@ local mappings = {
         ["<leader>w"] = utils.wrap_func("save_file"),
 
         ["<leader>t"] = utils.wrap_func("open_terminal"),
-
-        ["<leader>q"] = utils.wrap_func("quit"),
 
         ["<C-Left>"] = "<C-w><Left>",
         ["<C-Right>"] = "<C-w><Right>",
