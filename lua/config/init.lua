@@ -37,11 +37,6 @@ local funcs = {
         desc = "Save the current file", 
     },
 
-    select_buffer = {
-        func = utils.wrap_cmd("buffers"),
-        desc = "Select a buffer",
-    },
-
     open_terminal = {
         func = function()
             vim.cmd("terminal")
