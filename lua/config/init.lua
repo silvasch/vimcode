@@ -49,6 +49,37 @@ local funcs = {
         end,
         desc = "Open the terminal",
     },
+    open_file_explorer = {
+        func = utils.wrap_cmd("Explore"),
+        desc = "Open the file explorer",
+    },
+    open_file_picker = {
+        func = function()
+            local handle = io.popen("find")
+            local result = handle:read("*a")
+            handle:close()
+            files = {}
+            for s in result:gmatch("[^\r\n]+") do
+                table.insert(files, s)
+            end 
+            vim.ui.select(
+                files,
+                { prompt = "Open..." },
+                function(choice)
+                    if choice == nil then
+                        return
+                    end
+                    vim.cmd("e " .. choice)
+                end
+            )
+        end,
+        desc = "Open the file picker",
+    },
+
+    open_config = {
+        func = utils.wrap_cmd("e $HOME/.config/nvim/lua/config/init.lua"),
+        desc = "Open the config file",
+    },
 }
 
 local mappings = {
@@ -58,6 +89,9 @@ local mappings = {
         
         ["<leader>n"] = utils.wrap_func("new_file"),
         ["<leader>w"] = utils.wrap_func("save_file"),
+
+        ["<leader>e"] = utils.wrap_func("open_file_explorer"),
+        ["<leader>f"] = utils.wrap_func("open_file_picker"),
 
         ["<leader>t"] = utils.wrap_func("open_terminal"),
 
