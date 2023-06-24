@@ -85,10 +85,9 @@ local mappings = {
         ["<leader>n"] = utils.wrap_func("new_file"),
         ["<leader>w"] = utils.wrap_func("save_file"),
 
+        ["<leader>t"] = utils.wrap_func("open_terminal"),
         ["<leader>e"] = utils.wrap_func("open_file_explorer"),
         ["<leader>f"] = utils.wrap_func("open_file_picker"),
-
-        ["<leader>t"] = utils.wrap_func("open_terminal"),
 
         ["<C-Left>"] = "<C-w><Left>",
         ["<C-Right>"] = "<C-w><Right>",
@@ -96,6 +95,9 @@ local mappings = {
         ["<C-Down>"] = "<C-w><Down>",
         ["<C-h>"] = "<C-w>s",
         ["<C-v>"] = "<C-w>v",
+    },
+    t = {
+        ["<esc>"] = "<C-d>",
     },
 }
 
