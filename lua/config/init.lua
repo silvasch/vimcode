@@ -19,6 +19,12 @@ local gs = {
 	mapleader = " ",
 }
 
+local plugins = {
+    "plenary.nvim",
+    "telescope.nvim",
+    "dressing.nvim",
+}
+
 local funcs = {
     new_file = {
         func = utils.wrap_cmd("enew"),
@@ -79,6 +85,7 @@ local mappings = {
 
 config.opts = opts
 config.gs = gs
+config.plugins = plugins
 config.funcs = funcs
 config.mappings = mappings
 return config
