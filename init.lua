@@ -1,4 +1,3 @@
-local utils = require("utils")
 local vimcode = require("vimcode")
 
 local config = require("config")
