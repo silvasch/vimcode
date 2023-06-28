@@ -8,6 +8,9 @@ local plugins = config.plugins or {}
 local funcs = config.funcs or {}
 local mappings = config.mappings or {}
 
+vimcode.plugins.load_plugins(plugins)
+config.on_plugins_loaded()
+
 vimcode.options.load_opts(opts)
 vimcode.options.load_gs(gs)
 
@@ -18,6 +21,4 @@ vimcode.run.create_user_command()
 if not (config.colorscheme == nil) then
     vim.cmd("colorscheme " .. config.colorscheme)
 end
-
-vimcode.plugins.load_plugins(plugins)
 

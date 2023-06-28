@@ -1,7 +1,9 @@
 local utils = require("vimcode.utils")
 local adv_funcs = require("config.adv_funcs")
 
-local config = {}
+local config = {
+    colorscheme = "catppuccin",
+}
 
 local opts = {
     -- tab width
@@ -20,9 +22,12 @@ local gs = {
 }
 
 local plugins = {
-    "plenary.nvim",
-    "telescope.nvim",
-    "dressing.nvim",
+    "plenary.nvim", -- https://github.com/nvim-lua/plenary.nvim, utilities, required by telescope
+    "telescope.nvim", -- https://github.com/nvim-telescope/telescope.nvim, file picker and more
+    "dressing.nvim", -- https://github.com/stevearc/dressing.nvim, better vim.ui.select
+
+    -- colorschemes
+    "catppuccin", -- https://github.com/catppuccin/nvim, as catppuccin
 }
 
 local funcs = {
@@ -49,6 +54,11 @@ local funcs = {
     open_file_picker = {
         func = adv_funcs.file_picker,
         desc = "Open the file picker",
+    },
+
+    select_colorscheme = {
+        func = adv_funcs.select_colorscheme,
+        desc = "Select colorscheme",
     },
 
     open_config = {
@@ -88,5 +98,12 @@ config.gs = gs
 config.plugins = plugins
 config.funcs = funcs
 config.mappings = mappings
+
+config.on_plugins_loaded = function()
+    require("catppuccin").setup({
+        flavour = "mocha",
+    })
+end
+
 return config
 

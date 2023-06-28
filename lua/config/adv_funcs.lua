@@ -26,8 +26,37 @@ M.file_picker = function()
             if choice == nil then
                 return
             end
-        vim.cmd("e " .. choice)
+            vim.cmd("e " .. choice)
+        end
+    )
+end
+
+M.select_colorscheme = function()
+    local before_background = vim.o.background
+    local before_color = vim.api.nvim_exec("colorscheme", true)
+    local need_restore = true
+
+    local colors = { before_color }
+    if not vim.tbl_contains(colors, before_color) then
+        table.insert(colors, 1, before_color)
     end
+
+    colors = vim.list_extend(
+        colors,
+        vim.tbl_filter(function(color)
+            return color ~= before_color
+        end, vim.fn.getcompletion("", "color"))
+    )
+
+    vim.ui.select(
+        colors,
+        { prompt = "Select colorscheme..." },
+        function(choice)
+            if choice == nil then
+                return
+            end
+            vim.cmd("colorscheme " .. choice)
+        end
     )
 end
 
