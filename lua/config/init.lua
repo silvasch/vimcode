@@ -22,6 +22,8 @@ local gs = {
 }
 
 local plugins = {
+    "nvim-autopairs", -- https://github.com/windwp/nvim-autopairs, auto-close parentheses
+
     "plenary.nvim", -- https://github.com/nvim-lua/plenary.nvim, utilities, required by telescope
     "telescope.nvim", -- https://github.com/nvim-telescope/telescope.nvim, file picker and more
     "dressing.nvim", -- https://github.com/stevearc/dressing.nvim, better vim.ui.select
@@ -103,6 +105,8 @@ config.on_plugins_loaded = function()
     require("catppuccin").setup({
         flavour = "mocha",
     })
+
+    require("nvim-autopairs").setup()
 end
 
 return config
