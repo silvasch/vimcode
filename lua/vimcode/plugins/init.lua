@@ -5,6 +5,14 @@ local config_file  = vim.fn.stdpath("config") .. "/lua/config/init.lua"
 
 local M = {}
 
+function parse_url(url)
+    if string.find(url, "^https://") then
+        return url
+    else
+        return "https://github.com/" .. url
+    end
+end
+
 function add_plugin(opts)
     local url = opts.fargs[1]
     local name = opts.fargs[2]
@@ -111,7 +119,7 @@ end
 
 function load_plugin(plugin)
     if not (vim.fn.isdirectory(plugins_dir .. plugin.name) ~= 0) then
-        git.clone(plugins_dir, plugin.url, plugin.name, plugin.branch, function()
+        git.clone(plugins_dir, parse_url(plugin.url), plugin.name, plugin.branch, function()
             vim.cmd("packadd! " .. plugin.name)
             print("Called on_success")
         end)
@@ -123,6 +131,7 @@ function load_plugin(plugin)
         plugin.on_load()
     end
 end
+
 
 M.load_plugins = function(plugins)
     if plugins == nil then
