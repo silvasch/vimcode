@@ -48,13 +48,13 @@ local plugins = {
     },
 -- -> dressing.nvim end
 -- -> autopairs begin
-    {
-        url = "windwp/nvim-autopairs",
-        name = "autopairs",
+	{
+		url = "windwp/nvim-autopairs",
+		name = "autopairs",
         on_load = function()
             require("nvim-autopairs").setup({})
         end
-    },
+	},
 -- -> autopairs end
 -- -> plugins end
 }

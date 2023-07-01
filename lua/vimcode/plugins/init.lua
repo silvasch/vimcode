@@ -47,22 +47,22 @@ function add_plugin(opts)
         out = out .. line .. "\n"
     end
     if branch == nil then
-        out = out .. string.format([[-- -> %s begin
-{
-    url = "%s",
-    name = "%s",
-},
--- -> %s end
-]], name, url, name, name)
+        out = out .. string.format(
+"-- -> %s begin\n" ..
+"\t{\n" ..
+"\t\turl = \"%s\",\n" ..
+"\t\tname = \"%s\",\n" ..
+"\t},\n" ..
+"-- -> %s end\n", name, url, name, name)
     else
-        out = out .. string.format([[-- -> %s begin
-{
-    url = "%s",
-    name = "%s",
-    branch = "%s",
-},
--- -> %s end
-]], name, url, name, branch, name)
+        out = out .. string.format(
+"-- -> %s begin\n" ..
+"\t{\n" ..
+"\t\turl = \"%s\",\n" ..
+"\t\tname = \"%s\",\n" ..
+"\t\tbranch = \"%s\"\n" ..
+"\t},\n" ..
+"-- -> %s end\n", name, url, name, branch, name)
     end
     for _, line in ipairs(lines_after) do
         out = out .. line .. "\n"
