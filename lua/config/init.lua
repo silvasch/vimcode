@@ -1,8 +1,6 @@
 local utils = require("vimcode.utils")
-local adv_funcs = require("config.adv_funcs")
 
 local config = {
-    colorscheme = "catppuccin",
 }
 
 local opts = {
@@ -21,30 +19,29 @@ local gs = {
 	mapleader = " ",
 }
 
-local plugins = {
-    "nvim-autopairs", -- https://github.com/windwp/nvim-autopairs, auto-close parentheses
-    "nvim-treesitter",
-    
-    "plenary.nvim", -- https://github.com/nvim-lua/plenary.nvim, utilities, required by telescope
-    "telescope.nvim", -- https://github.com/nvim-telescope/telescope.nvim, file picker and more
-    "dressing.nvim", -- https://github.com/stevearc/dressing.nvim, better vim.ui.select
-
-    -- colorschemes
-    "catppuccin", -- https://github.com/catppuccin/nvim, as catppuccin
-}
-
 local funcs = {
     new_file = {
         func = utils.wrap_cmd("enew"),
         desc = "Create a new file",
     },
     save_file = {
-        func = adv_funcs.save_file,
+        func = function()
+            local file_name = vim.fn.bufname()
+            if file_name == "" then
+                file_name = vim.fn.input("Filename (esc or leave empty to cancel): ", "", "file")
+                if file_name == nil or file_name == "" then
+                    return
+                end
+            end
+            vim.cmd("write " .. file_name)
+        end,
         desc = "Save the current file", 
     },
 
     open_terminal = {
         func = function()
+            vim.cmd("vsplit")
+            vim.cmd("wincmd w")
             vim.cmd("terminal")
             vim.cmd("startinsert")
         end,
@@ -55,12 +52,57 @@ local funcs = {
         desc = "Open the file explorer",
     },
     open_file_picker = {
-        func = adv_funcs.file_picker,
+        func = function()
+            local handle = io.popen("find -not -path './.git/*' -not -path './target/*' -not -path './node_modules/*' -type f")
+            local result = handle:read("*a")
+            handle:close()
+            files = {}
+            for s in result:gmatch("[^\r\n]+") do
+                table.insert(files, s)
+            end 
+            vim.ui.select(
+                files,
+                { prompt = "Open..." },
+                function(choice)
+                    if choice == nil then
+                        return
+                    end
+                    vim.cmd("e " .. choice)
+                end
+            )
+        end,
         desc = "Open the file picker",
     },
 
     select_colorscheme = {
-        func = adv_funcs.select_colorscheme,
+        func = function()
+            local before_background = vim.o.background
+            local before_color = vim.api.nvim_exec("colorscheme", true)
+            local need_restore = true
+
+            local colors = { before_color }
+            if not vim.tbl_contains(colors, before_color) then
+                table.insert(colors, 1, before_color)
+            end
+
+            colors = vim.list_extend(
+                colors,
+                vim.tbl_filter(function(color)
+                    return color ~= before_color
+                end, vim.fn.getcompletion("", "color"))
+            )
+
+            vim.ui.select(
+                colors,
+                { prompt = "Select colorscheme..." },
+                function(choice)
+                    if choice == nil then
+                        return
+                    end
+                    vim.cmd("colorscheme " .. choice)
+                end
+            )
+        end,
         desc = "Select colorscheme",
     },
 
