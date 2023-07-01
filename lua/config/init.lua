@@ -1,6 +1,7 @@
 local utils = require("vimcode.utils")
 
 local config = {
+    colorscheme = "catppuccin",
 }
 
 local opts = {
@@ -17,6 +18,36 @@ local opts = {
 
 local gs = {
 	mapleader = " ",
+}
+
+local plugins = {
+-- -> plugins begin
+-- -> catppuccin begin
+    {
+        url = "https://github.com/catppuccin/nvim",
+        name = "catppuccin",
+    },
+-- -> catppuccin end
+-- -> plenary begin
+    {
+        url = "https://github.com/nvim-lua/plenary.nvim",
+        name = "plenary",
+    },
+-- -> plenary end
+-- -> telescope begin
+    {
+        url = "https://github.com/nvim-telescope/telescope.nvim",
+        name = "telescope",
+        branch = "0.1.1",
+    },
+-- -> telescope end
+-- -> dressing.nvim begin
+    {
+        url = "https://github.com/stevearc/dressing.nvim",
+        name = "dressing.nvim",
+    },
+-- -> dressing.nvim end
+-- -> plugins end
 }
 
 local funcs = {
