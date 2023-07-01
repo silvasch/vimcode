@@ -42,6 +42,10 @@ function add_plugin(opts)
 
     io.close()
 
+    if not found_plugins_section then
+        error("Could not automatically add the plugin to your spec, as there is no plugins section in your config.\n")
+        return
+    end
     local out = ""
     for _, line in ipairs(lines_before) do
         out = out .. line .. "\n"
