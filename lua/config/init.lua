@@ -1,4 +1,5 @@
 local utils = require("vimcode.utils")
+local plugin_funcs = require("config.plugin_funcs")
 
 local config = {
     colorscheme = "catppuccin",
@@ -47,12 +48,15 @@ local plugins = {
         name = "dressing.nvim",
     },
 -- -> dressing.nvim end
--- -> url begin
+-- -> autopairs begin
 	{
-		url = "test/url",
-		name = "url",
+		url = "windwp/nvim-autopairs",
+		name = "autopairs",
+        on_load = function()
+            require("nvim-autopairs").setup({})
+        end
 	},
--- -> url end
+-- -> autopairs end
 -- -> plugins end
 }
 
@@ -149,6 +153,19 @@ local funcs = {
         end,
         desc = "Open the config file",
     },
+
+    add_plugin = {
+        func = plugin_funcs.add_plugin,
+        desc = "Add a plugin",
+    },
+    remove_plugin = {
+        func = plugin_funcs.remove_plugin,
+        desc = "Remove a plugin",
+    },
+    clean_plugins = {
+        func = utils.wrap_cmd("PlugClean"),
+        desc = "Clean the plugins folder",
+    }
 }
 
 local mappings = {
@@ -180,21 +197,6 @@ config.gs = gs
 config.plugins = plugins
 config.funcs = funcs
 config.mappings = mappings
-
-config.on_plugins_loaded = function()
-    require("catppuccin").setup({
-        flavour = "mocha",
-    })
-
-    require("nvim-autopairs").setup()
-
-    require("nvim-treesitter.configs").setup({
-        ensure_installed = { "lua", "c" },
-        highlight = {
-            enable = true,
-        },
-    })
-end
 
 return config
 

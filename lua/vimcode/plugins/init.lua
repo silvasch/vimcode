@@ -83,7 +83,7 @@ function add_plugin(opts)
         branch = branch,
     })
 
-    print(string.format("Added package '%s'. Restart neovim to load it.", name))
+    print(string.format("Added plugin '%s'. Restart neovim to load it.", name))
 end
 
 function remove_plugin(name)
@@ -118,14 +118,13 @@ function remove_plugin(name)
 
     os.execute("rm -rf " .. plugins_dir .. name)
 
-    print(string.format("Removed package '%s'. Restart neovim for the changes to take effect.", name))
+    print(string.format("Removed plugin '%s'. Restart neovim for the changes to take effect.", name))
 end
 
 function load_plugin(plugin)
     if not (vim.fn.isdirectory(plugins_dir .. plugin.name) ~= 0) then
         git.clone(plugins_dir, parse_url(plugin.url), plugin.name, plugin.branch, function()
             vim.cmd("packadd! " .. plugin.name)
-            print("Called on_success")
         end)
     else
         vim.cmd("packadd! " .. plugin.name)
@@ -149,18 +148,25 @@ M.load_plugins = function(plugins)
     end
 
     vim.api.nvim_create_user_command(
-        "PackAdd",
+        "PlugAdd",
         function(opts)
             add_plugin(opts)
         end,
 	    { nargs = "+" }
     )
     vim.api.nvim_create_user_command(
-        "PackRm",
+        "PlugRm",
         function(opts)
             remove_plugin(opts.fargs[1])
         end,
 	    { nargs = 1 }
+    )
+    vim.api.nvim_create_user_command(
+        "PlugClean",
+        function(opts)
+            os.execute("rm -rf " .. plugins_dir .. "*")
+        end,
+        { nargs = 0 }
     )
 end
 
