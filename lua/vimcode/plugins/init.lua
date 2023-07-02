@@ -77,12 +77,6 @@ function add_plugin(opts)
     io.write(out)
     io.close()
 
-    load_plugin({
-        url = url,
-        name = name,
-        branch = branch,
-    })
-
     print(string.format("Added plugin '%s'. Restart neovim to load it.", name))
 end
 
@@ -125,6 +119,9 @@ function load_plugin(plugin)
     if not (vim.fn.isdirectory(plugins_dir .. plugin.name) ~= 0) then
         git.clone(plugins_dir, parse_url(plugin.url), plugin.name, plugin.branch, function()
             vim.cmd("packadd! " .. plugin.name)
+            if not (plugin.on_build == nil) then
+                plugin.on_build()
+            end
         end)
     else
         vim.cmd("packadd! " .. plugin.name)

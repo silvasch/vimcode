@@ -57,6 +57,23 @@ local plugins = {
         end
 	},
 -- -> autopairs end
+-- -> treesitter begin
+	{
+		url = "nvim-treesitter/nvim-treesitter",
+		name = "treesitter",
+        on_build = function()
+            vim.cmd("TSUpdate")
+        end,
+        on_load = function()
+            require("nvim-treesitter.configs").setup({
+                ensure_installed = { "c", "rust", "lua", "python", "go" },
+                highlight = {
+                    enable = true,
+                },
+            })
+        end
+	},
+-- -> treesitter end
 -- -> plugins end
 }
 
