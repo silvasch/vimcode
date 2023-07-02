@@ -116,6 +116,10 @@ function remove_plugin(name)
 end
 
 function load_plugin(plugin)
+    if plugin.enable == false then
+        return
+    end
+
     if not (vim.fn.isdirectory(plugins_dir .. plugin.name) ~= 0) then
         git.clone(plugins_dir, parse_url(plugin.url), plugin.name, plugin.branch, function()
             vim.cmd("packadd! " .. plugin.name)
