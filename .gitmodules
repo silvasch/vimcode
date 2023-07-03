@@ -7,6 +7,3 @@
 [submodule "lua/config/plugins/pack/plugins/opt/dressing.nvim"]
 	path = lua/config/plugins/pack/plugins/opt/dressing.nvim
 	url = https://github.com/stevearc/dressing.nvim
-[submodule "lua/config/plugins/pack/plugins/opt/catppuccin"]
-	path = lua/config/plugins/pack/plugins/opt/catppuccin
-	url = https://github.com/catppuccin/nvim

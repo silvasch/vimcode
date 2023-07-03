@@ -1,15 +1,11 @@
 local utils = require("vimcode.utils")
 
-local config = {
-    colorscheme = "catppuccin",
-}
+local config = {}
 
 local plugins = {
     { name = "plenary.nvim", },
     { name = "telescope.nvim", },
     { name = "dressing.nvim", },
-
-    { name = "catppuccin" },
 }
 
 local opts = {
