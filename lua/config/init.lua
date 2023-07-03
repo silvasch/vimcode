@@ -27,7 +27,10 @@ local plugins = {
 
             lsp.setup_servers({
                 "rust_analyzer",
+                "clangd",
             })
+
+            require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
 
             lsp.setup()
 
@@ -64,9 +67,9 @@ local plugins = {
 
 local opts = {
     -- tab width
-	tabstop = 4,
-	shiftwidth = 4,
-	expandtab = true,
+    tabstop = 4,
+    shiftwidth = 4,
+    expandtab = true,
 
     -- line numbers
     number = true,
@@ -76,7 +79,7 @@ local opts = {
 }
 
 local gs = {
-	mapleader = " ",
+    mapleader = " ",
 }
 
 local funcs = {
@@ -95,7 +98,24 @@ local funcs = {
             end
             vim.cmd("write " .. file_name)
         end,
-        desc = "Save the current file", 
+        desc = "Save the current file",
+    },
+
+    lsp_rename = {
+        func = vim.lsp.buf.rename,
+        desc = "LSP: Rename the current symbol",
+    },
+    lsp_actions = {
+        func = vim.lsp.buf.code_action,
+        desc = "LSP: Code actions",
+    },
+    lsp_hover = {
+        func = vim.lsp.buf.hover,
+        desc = "LSP: Hover",
+    },
+    lsp_format = {
+        func = vim.lsp.buf.format,
+        desc = "LSP: Format",
     },
 
     open_terminal = {
@@ -113,13 +133,14 @@ local funcs = {
     },
     open_file_picker = {
         func = function()
-            local handle = io.popen("find -not -path './.git/*' -not -path './target/*' -not -path './node_modules/*' -type f")
+            local handle = io.popen(
+            "find -not -path './.git/*' -not -path './target/*' -not -path './node_modules/*' -type f")
             local result = handle:read("*a")
             handle:close()
             files = {}
             for s in result:gmatch("[^\r\n]+") do
                 table.insert(files, s)
-            end 
+            end
             vim.ui.select(
                 files,
                 { prompt = "Open..." },
@@ -168,7 +189,7 @@ local funcs = {
 
     open_config = {
         func = function()
-            vim.cmd("e " .. vim.fn.stdpath("config") .. "/lua/config/init.lua") 
+            vim.cmd("e " .. vim.fn.stdpath("config") .. "/lua/config/init.lua")
         end,
         desc = "Open the config file",
     },
@@ -178,13 +199,17 @@ local mappings = {
     n = {
         ["<leader>p"] = utils.wrap_cmd("Funcs"),
         ["<leader>r"] = utils.wrap_cmd("Run"),
-        
+
         ["<leader>n"] = utils.wrap_func("new_file"),
         ["<leader>w"] = utils.wrap_func("save_file"),
 
         ["<leader>t"] = utils.wrap_func("open_terminal"),
         ["<leader>e"] = utils.wrap_func("open_file_explorer"),
         ["<leader>f"] = utils.wrap_func("open_file_picker"),
+
+        ["<leader>la"] = utils.wrap_func("lsp_actions"),
+        ["<leader>lr"] = utils.wrap_func("lsp_rename"),
+        ["<leader>lh"] = utils.wrap_func("lsp_hover"),
 
         ["<C-Left>"] = "<C-w><Left>",
         ["<C-Right>"] = "<C-w><Right>",
@@ -205,4 +230,3 @@ config.funcs = funcs
 config.mappings = mappings
 
 return config
-
