@@ -115,6 +115,24 @@ function remove_plugin(name)
     print(string.format("Removed plugin '%s'. Restart neovim for the changes to take effect.", name))
 end
 
+function update_plugins(opts)
+    if opts.fargs == nil then
+        -- update all plugins
+    else
+        for _, plugin in ipairs(opts.fargs) do
+            git.pull(plugins_dir, plugin, function()
+                vim.cmd("packadd! " .. opts.fargs[1])
+                if not (plugin.on_build == nil) then
+                    plugin.on_build()
+                end
+                if not (plugin.on_load == nil) then
+                    plugin.on_load()
+                end
+            end)
+        end
+    end
+end
+
 function load_plugin(plugin)
     if plugin.enable == false then
         return
@@ -126,14 +144,17 @@ function load_plugin(plugin)
             if not (plugin.on_build == nil) then
                 plugin.on_build()
             end
+            if not (plugin.on_load == nil) then
+                plugin.on_load()
+            end
         end)
     else
         vim.cmd("packadd! " .. plugin.name)
+        if not (plugin.on_load == nil) then
+            plugin.on_load()
+        end
     end
 
-    if not (plugin.on_load == nil) then
-        plugin.on_load()
-    end
 end
 
 
@@ -161,6 +182,13 @@ M.load_plugins = function(plugins)
             remove_plugin(opts.fargs[1])
         end,
 	    { nargs = 1 }
+    )
+    vim.api.nvim_create_user_command(
+        "PlugUpdate",
+        function(opts)
+            update_plugins(opts)
+        end,
+        { nargs = "?" }
     )
     vim.api.nvim_create_user_command(
         "PlugClean",

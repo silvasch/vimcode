@@ -12,6 +12,7 @@ local opts = {
 	expandtab = true,
 
     -- line numbers
+    number = true,
     relativenumber = true,
 
     signcolumn = "yes",
