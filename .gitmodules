@@ -7,3 +7,7 @@
 [submodule "/home/silva/.config/nvim/lua/config/plugins/pack/plugins/opt/catppuccin"]
 	path = /home/silva/.config/nvim/lua/config/plugins/pack/plugins/opt/catppuccin
 	url = https://github.com/catppuccin/nvim
+[submodule "/home/silva/.config/nvim/lua/config/plugins/pack/plugins/opt/telescope.nvim"]
+	path = /home/silva/.config/nvim/lua/config/plugins/pack/plugins/opt/telescope.nvim
+	url = https://github.com/nvim-telescope/telescope.nvim
+	branch = 0.1.x
