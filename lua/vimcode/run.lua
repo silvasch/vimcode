@@ -25,6 +25,8 @@ function run(name, run_config)
         return
     end
 
+    vim.cmd("vsplit")
+    vim.cmd("wincmd w")
     vim.cmd("terminal " .. run_config[name].cmd)
     vim.cmd("startinsert")
 end

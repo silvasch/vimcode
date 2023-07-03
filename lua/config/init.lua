@@ -16,6 +16,31 @@ local plugins = {
     { name = "telescope.nvim", },
     { name = "dressing.nvim", },
 
+    { name = "nvim-lspconfig" },
+    { name = "nvim-cmp" },
+    { name = "cmp-nvim-lsp" },
+    { name = "LuaSnip" },
+    {
+        name = "lsp-zero.nvim",
+        on_load = function()
+            local lsp = require("lsp-zero").preset("recommended")
+
+            lsp.setup_servers({
+                "rust_analyzer",
+            })
+
+            lsp.setup()
+
+            local cmp = require("cmp")
+
+            cmp.setup({
+                mapping = {
+                    ["<cr>"] = cmp.mapping.confirm({ select = false }),
+                },
+            })
+        end
+    },
+
     {
         name = "nvim-treesitter",
         on_load = function()
