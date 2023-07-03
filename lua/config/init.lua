@@ -1,8 +1,19 @@
 local utils = require("vimcode.utils")
-local plugin_funcs = require("config.plugin_funcs")
 
 local config = {
-    colorscheme = "catppuccin",
+--    colorscheme = "catppuccin",
+}
+
+local plugins = {
+    {
+        name = "plenary.nvim",
+    },
+    {
+        name = "telescope.nvim",
+    },
+    {
+        name = "dressing.nvim",
+    },
 }
 
 local opts = {
@@ -20,62 +31,6 @@ local opts = {
 
 local gs = {
 	mapleader = " ",
-}
-
-local plugins = {
--- -> plugins begin
--- -> catppuccin begin
-    {
-        url = "https://github.com/catppuccin/nvim",
-        name = "catppuccin",
-    },
--- -> catppuccin end
--- -> plenary begin
-    {
-        url = "https://github.com/nvim-lua/plenary.nvim",
-        name = "plenary",
-    },
--- -> plenary end
--- -> telescope begin
-    {
-        url = "https://github.com/nvim-telescope/telescope.nvim",
-        name = "telescope",
-        branch = "0.1.1",
-    },
--- -> telescope end
--- -> dressing.nvim begin
-    {
-        url = "https://github.com/stevearc/dressing.nvim",
-        name = "dressing.nvim",
-    },
--- -> dressing.nvim end
--- -> autopairs begin
-	{
-		url = "windwp/nvim-autopairs",
-		name = "autopairs",
-        on_load = function()
-            require("nvim-autopairs").setup({})
-        end
-	},
--- -> autopairs end
--- -> treesitter begin
-	{
-		url = "nvim-treesitter/nvim-treesitter",
-		name = "treesitter",
-        on_build = function()
-            vim.cmd("TSUpdate")
-        end,
-        on_load = function()
-            require("nvim-treesitter.configs").setup({
-                ensure_installed = { "c", "rust", "lua", "python", "go" },
-                highlight = {
-                    enable = true,
-                },
-            })
-        end
-	},
--- -> treesitter end
--- -> plugins end
 }
 
 local funcs = {
@@ -171,19 +126,6 @@ local funcs = {
         end,
         desc = "Open the config file",
     },
-
-    add_plugin = {
-        func = plugin_funcs.add_plugin,
-        desc = "Add a plugin",
-    },
-    remove_plugin = {
-        func = plugin_funcs.remove_plugin,
-        desc = "Remove a plugin",
-    },
-    clean_plugins = {
-        func = utils.wrap_cmd("PlugClean"),
-        desc = "Clean the plugins folder",
-    }
 }
 
 local mappings = {
@@ -210,9 +152,9 @@ local mappings = {
     },
 }
 
+config.plugins = plugins
 config.opts = opts
 config.gs = gs
-config.plugins = plugins
 config.funcs = funcs
 config.mappings = mappings
 
