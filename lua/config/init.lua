@@ -6,7 +6,7 @@ local config = {
 
 local plugins = {
     { name = "plenary.nvim", },
-    { name = "telescope.nvim", },
+    -- { name = "telescope.nvim", },
     { name = "dressing.nvim", },
 
     { name = "catppuccin", },

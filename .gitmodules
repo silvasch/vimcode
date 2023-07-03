@@ -1,9 +1,6 @@
 [submodule "lua/config/plugins/pack/plugins/opt/plenary.nvim"]
 	path = lua/config/plugins/pack/plugins/opt/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim
-[submodule "lua/config/plugins/pack/plugins/opt/telescope.nvim"]
-	path = lua/config/plugins/pack/plugins/opt/telescope.nvim
-	url = https://github.com/nvim-telescope/telescope.nvim
 [submodule "lua/config/plugins/pack/plugins/opt/dressing.nvim"]
 	path = lua/config/plugins/pack/plugins/opt/dressing.nvim
 	url = https://github.com/stevearc/dressing.nvim
