@@ -5,6 +5,13 @@ local config = {
 }
 
 local plugins = {
+    {
+        name = "nvim-autopairs",
+        on_load = function()
+            require("nvim-autopairs").setup({})
+        end,
+    },
+
     { name = "plenary.nvim", },
     { name = "telescope.nvim", },
     { name = "dressing.nvim", },

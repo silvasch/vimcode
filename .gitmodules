@@ -11,3 +11,6 @@
 	path = /home/silva/.config/nvim/lua/config/plugins/pack/plugins/opt/telescope.nvim
 	url = https://github.com/nvim-telescope/telescope.nvim
 	branch = 0.1.x
+[submodule "/home/silva/.config/nvim/lua/config/plugins/pack/plugins/opt/nvim-autopairs"]
+	path = /home/silva/.config/nvim/lua/config/plugins/pack/plugins/opt/nvim-autopairs
+	url = https://github.com/windwp/nvim-autopairs
