@@ -14,3 +14,6 @@
 [submodule "/home/silva/.config/nvim/lua/config/plugins/pack/plugins/opt/nvim-autopairs"]
 	path = /home/silva/.config/nvim/lua/config/plugins/pack/plugins/opt/nvim-autopairs
 	url = https://github.com/windwp/nvim-autopairs
+[submodule "/home/silva/.config/nvim/lua/config/plugins/pack/plugins/opt/nvim-treesitter"]
+	path = /home/silva/.config/nvim/lua/config/plugins/pack/plugins/opt/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter

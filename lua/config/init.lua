@@ -16,6 +16,24 @@ local plugins = {
     { name = "telescope.nvim", },
     { name = "dressing.nvim", },
 
+    {
+        name = "nvim-treesitter",
+        on_load = function()
+            require("nvim-treesitter.configs").setup({
+                ensure_installed = {
+                    "lua",
+                    "c",
+                    "rust",
+                    "python",
+                    "go",
+                },
+                highlight = {
+                    enable = true,
+                },
+            })
+        end,
+    },
+
     { name = "catppuccin", },
 }
 
