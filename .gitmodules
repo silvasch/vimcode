@@ -1,0 +1,3 @@
+[submodule "lua/config/plugins/pack/plugins/opt/plenary.nvim"]
+	path = lua/config/plugins/pack/plugins/opt/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim
