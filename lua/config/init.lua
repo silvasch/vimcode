@@ -5,6 +5,9 @@ local config = {
 }
 
 local plugins = {
+    {
+        name = "plenary.nvim",
+    },
 }
 
 local opts = {
