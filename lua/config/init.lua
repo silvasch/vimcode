@@ -101,6 +101,14 @@ local funcs = {
         desc = "Save the current file",
     },
 
+    lazygit = {
+        func = function()
+            vim.cmd("terminal lazygit")
+            vim.cmd("startinsert")
+        end,
+        desc = "Open lazygit",
+    },
+
     lsp_rename = {
         func = vim.lsp.buf.rename,
         desc = "LSP: Rename the current symbol",
@@ -135,9 +143,12 @@ local funcs = {
         func = function()
             local handle = io.popen(
             "find -not -path './.git/*' -not -path './target/*' -not -path './node_modules/*' -type f")
+            if handle == nil then
+                error("failed to list files")
+            end
             local result = handle:read("*a")
             handle:close()
-            files = {}
+            local files = {}
             for s in result:gmatch("[^\r\n]+") do
                 table.insert(files, s)
             end
@@ -157,9 +168,7 @@ local funcs = {
 
     select_colorscheme = {
         func = function()
-            local before_background = vim.o.background
             local before_color = vim.api.nvim_exec("colorscheme", true)
-            local need_restore = true
 
             local colors = { before_color }
             if not vim.tbl_contains(colors, before_color) then

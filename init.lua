@@ -8,7 +8,7 @@ local plugins = config.plugins or {}
 local funcs = config.funcs or {}
 local mappings = config.mappings or {}
 
-vimcode.plugins.load_plugins(config.plugins)
+vimcode.plugins.load_plugins(plugins)
 
 vimcode.options.load_opts(opts)
 vimcode.options.load_gs(gs)

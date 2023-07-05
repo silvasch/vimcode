@@ -2,7 +2,7 @@ local utils = require("vimcode.utils")
 
 local M = {}
 
-function find_run_config()
+local function find_run_config()
     local file_dir = vim.fn.getcwd()
     local file_name = "run.json"
     while true do
@@ -19,7 +19,7 @@ function find_run_config()
     return file_dir .. "/" .. file_name
 end
 
-function run(name, run_config)
+local function run(name, run_config)
     if run_config[name] == nil then
         print("'" .. name .. "' is not a name of a run config")
         return
@@ -31,10 +31,10 @@ function run(name, run_config)
     vim.cmd("startinsert")
 end
 
-function show_runs(run_config)
+local function show_runs(run_configs)
     local run_descriptions = {}
-    for _, run in pairs(run_config) do
-        table.insert(run_descriptions, run.desc)
+    for _, run_config in pairs(run_configs) do
+        table.insert(run_descriptions, run_config.desc)
     end
 
     vim.ui.select(run_descriptions, {
@@ -44,13 +44,15 @@ function show_runs(run_config)
             return
         end
 
-        for name, run in pairs(run_config) do
-            if run.desc == choice then
+        local run_name = nil
+
+        for name, run_config in pairs(run_configs) do
+            if run_config.desc == choice then
                 run_name = name
             end
         end
-        
-        run(run_name, run_config)
+
+        run(run_name, run_configs)
     end)
 end
 
