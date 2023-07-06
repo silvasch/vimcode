@@ -28,6 +28,7 @@ local plugins = {
             lsp.setup_servers({
                 "rust_analyzer",
                 "clangd",
+                "gopls",
             })
 
             require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
@@ -215,6 +216,7 @@ local mappings = {
         ["<leader>t"] = utils.wrap_func("open_terminal"),
         ["<leader>e"] = utils.wrap_func("open_file_explorer"),
         ["<leader>f"] = utils.wrap_func("open_file_picker"),
+        ["f"] = utils.wrap_func("open_file_picker"),
 
         ["<leader>la"] = utils.wrap_func("lsp_actions"),
         ["<leader>lr"] = utils.wrap_func("lsp_rename"),
